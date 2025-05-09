@@ -1,6 +1,8 @@
 package com.Auth.Authentication.controller;
 
 import com.Auth.Authentication.model.User;
+import com.Auth.Authentication.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,10 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class MainController {
 
-    @GetMapping("/")
-    public String root() {
-        return "redirect:/login";
-    }
+    @Autowired
+    private UserRepository userRepo;
 
     @GetMapping("/login")
     public String showLoginPage(Model model) {
@@ -21,8 +21,8 @@ public class MainController {
 
     @PostMapping("/login")
     public String processLogin(@ModelAttribute User user, Model model) {
-        // Dummy check
-        if ("admin".equals(user.getUsername()) && "1234".equals(user.getPassword())) {
+        User existing = userRepo.findByUsername(user.getUsername());
+        if (existing != null && existing.getPassword().equals(user.getPassword())) {
             model.addAttribute("username", user.getUsername());
             return "home";
         } else {
@@ -38,10 +38,20 @@ public class MainController {
     }
 
     @PostMapping("/register")
-    public String processRegister(@ModelAttribute User user, Model model) {
-        // Just show confirmation page for now — no DB yet
-        model.addAttribute("username", user.getUsername());
-        return "register_success";
+public String processRegister(@ModelAttribute User user, Model model) {
+    if (userRepo.findByUsername(user.getUsername()) != null) {
+        model.addAttribute("error", "Username already exists");
+        return "register";
     }
 
+    userRepo.save(user);
+    model.addAttribute("username", user.getUsername());
+    return "register_success";
+}
+
+
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/login";
+    }
 }
