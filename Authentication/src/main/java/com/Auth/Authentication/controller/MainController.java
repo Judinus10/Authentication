@@ -54,4 +54,19 @@ public String processRegister(@ModelAttribute User user, Model model) {
     public String root() {
         return "redirect:/login";
     }
+
+    @PostMapping("/forgot-password")
+public String forgotPassword(@RequestParam("email") String email, Model model) {
+    // You can check if the email exists in your database
+    User user = userRepo.findByEmail(email);  // Assuming you've added an email field to your User entity
+    if (user != null) {
+        // Send password reset link (in real-world, this would send an email with a reset link)
+        // For now, we'll simulate this by redirecting to a success page
+        model.addAttribute("message", "Password reset link sent to your email!");
+    } else {
+        model.addAttribute("error", "No user found with this email.");
+    }
+    return "forgot_password_success";  // This can be a success page showing message
+}
+
 }
