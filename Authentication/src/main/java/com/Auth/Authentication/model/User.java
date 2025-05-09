@@ -1,18 +1,26 @@
-// File: src/main/java/com/example/demo/model/User.java
 package com.Auth.Authentication.model;
 
+import jakarta.persistence.*;
+
+@Entity
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String username;
     private String password;
 
-    // Constructors
-    public User() {}
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+    // Getters & Setters
+    public long getId() { 
+        return id; 
     }
 
-    // Getters & Setters
+    public void setId(long id) { 
+        this.id = id; 
+    }
+
     public String getUsername() { 
         return username; 
     }
@@ -24,7 +32,7 @@ public class User {
     public String getPassword() { 
         return password; 
     }
-    
+
     public void setPassword(String password) { 
         this.password = password; 
     }
