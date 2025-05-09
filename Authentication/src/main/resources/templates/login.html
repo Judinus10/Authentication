@@ -8,6 +8,7 @@
     <input type="password" th:field="*{password}" placeholder="Password"><br>
     <button type="submit">Login</button>
 </form>
+<p>Don't have an account? <a th:href="@{/register}">Register here</a></p>
 <p th:if="${error}" th:text="${error}" style="color: red;"></p>
 </body>
 </html>

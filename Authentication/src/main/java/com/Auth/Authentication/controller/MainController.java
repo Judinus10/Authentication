@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class MainController {
 
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/login";
+    }
+
     @GetMapping("/login")
     public String showLoginPage(Model model) {
         model.addAttribute("user", new User());
@@ -26,8 +31,17 @@ public class MainController {
         }
     }
 
-    @GetMapping("/")
-    public String root() {
-        return "redirect:/login";
+    @GetMapping("/register")
+    public String showRegisterPage(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
     }
+
+    @PostMapping("/register")
+    public String processRegister(@ModelAttribute User user, Model model) {
+        // Just show confirmation page for now — no DB yet
+        model.addAttribute("username", user.getUsername());
+        return "register_success";
+    }
+
 }
