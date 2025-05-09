@@ -66,7 +66,7 @@ public String forgotPassword(@RequestParam("email") String email, Model model) {
     } else {
         model.addAttribute("error", "No user found with this email.");
     }
-    return "forgot_password_success";  // This can be a success page showing message
+    return "reset_success";  // This can be a success page showing message
 }
 
 }
