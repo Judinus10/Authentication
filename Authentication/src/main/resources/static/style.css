@@ -1,3 +1,4 @@
+/* Base Login Page Styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(to right, #f0f4f8, #dbeafe);
@@ -78,5 +79,30 @@ p {
     input, button {
         font-size: 14px;
         padding: 10px;
+    }
+}
+
+/* Responsive for mobile phones (≤ 480px) */
+@media (max-width: 480px) {
+    form {
+        width: 95%;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    input, button {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+
+    p, a {
+        font-size: 13px;
     }
 }
