@@ -63,3 +63,20 @@ p {
     margin-top: 20px;
     font-size: 14px;
 }
+
+/* Responsive for tablets and small laptops (≤ 720px) */
+@media (max-width: 720px) {
+    form {
+        width: 90%;
+        padding: 30px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    input, button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
