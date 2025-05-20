@@ -1,21 +1,32 @@
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-// import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-// import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-// import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+package com.Auth.Authentication.config;
 
-// @Configuration
-// @EnableWebSecurity
-// public class SecurityConfig extends WebSecurityConfiguration {
-//     @Override
-//     protected void configure(HttpSecurity http) throws Exception {
-//         http
-//             .authorizeRequests()
-//                 .antMatchers("/", "/login", "/register", "/forgot-password").permitAll()
-//                 .anyRequest().authenticated()
-//             .and()
-//             .oauth2Login()
-//                 .loginPage("/login")
-//                 .defaultSuccessUrl("/home", true);
-//     }
-// }
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/login", "/register", "/forgot-password", "/css/**", "/js/**").permitAll()
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .permitAll()
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .loginPage("/login")
+                .defaultSuccessUrl("/home", true)
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+            );
+
+        return http.build();
+    }
+}
