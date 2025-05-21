@@ -4,6 +4,7 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
@@ -19,7 +20,10 @@
         <p>Or</p>
 
         <!-- Use styled link instead of button inside anchor -->
-        <a href="/oauth2/authorization/google" class="social-btn google-btn">Continue with Google</a>
+        <a href="/oauth2/authorization/google" class="google-btn">
+            <i class="fab fa-google google-icon"></i>
+        </a>
+
 
         <p>Don't have an account? <a th:href="@{/register}">Register here</a></p>
         <p th:if="${error}" th:text="${error}" class="error-message"></p>
