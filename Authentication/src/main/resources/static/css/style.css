@@ -1,3 +1,8 @@
+/* Global Box Sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 /* Base Login Page Styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -9,7 +14,7 @@ body {
     margin: 0;
 }
 
-form {
+.login-container {
     background-color: #ffffff;
     padding: 40px;
     border-radius: 16px;
@@ -23,15 +28,20 @@ h2 {
     color: #1e3a8a;
 }
 
-input[type="text"],
-input[type="password"] {
+input {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
     border: 1px solid #cbd5e1;
     border-radius: 8px;
-    box-sizing: border-box;
     font-size: 14px;
+}
+
+input:focus,
+button:focus,
+a:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
 }
 
 button {
@@ -60,14 +70,36 @@ a:hover {
     text-decoration: underline;
 }
 
-p {
-    margin-top: 20px;
+/* Styled Google Button */
+.social-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.google-btn {
+    background-color: #db4437;
+}
+
+.google-btn:hover {
+    background-color: #c23321;
+}
+
+.error-message {
+    margin-top: 15px;
+    color: red;
     font-size: 14px;
 }
 
-/* Responsive for tablets and small laptops (≤ 720px) */
+/* Responsive for tablets (≤ 720px) */
 @media (max-width: 720px) {
-    form {
+    .login-container {
         width: 90%;
         padding: 30px;
     }
@@ -76,7 +108,7 @@ p {
         font-size: 20px;
     }
 
-    input, button {
+    input, button, .social-btn {
         font-size: 14px;
         padding: 10px;
     }
@@ -84,7 +116,7 @@ p {
 
 /* Responsive for mobile phones (≤ 480px) */
 @media (max-width: 480px) {
-    form {
+    .login-container {
         width: 95%;
         padding: 20px;
     }
@@ -93,16 +125,12 @@ p {
         font-size: 18px;
     }
 
-    input, button {
+    input, button, .social-btn {
         font-size: 13px;
         padding: 8px;
     }
 
-    button {
-        font-size: 14px;
-    }
-
-    p, a {
+    .error-message, a {
         font-size: 13px;
     }
 }
