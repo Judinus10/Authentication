@@ -5,6 +5,8 @@
 
 /* Base Page Styling */
 body {
+    background: url('/background.jpg') no-repeat center center fixed;
+    background-size: cover;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(to right, #f0f4f8, #dbeafe);
     display: flex;
