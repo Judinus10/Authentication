@@ -3,7 +3,7 @@
     box-sizing: border-box;
 }
 
-/* Base Login Page Styling */
+/* Base Page Styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(to right, #f0f4f8, #dbeafe);
@@ -14,22 +14,26 @@ body {
     margin: 0;
 }
 
-.login-container {
+/* Login and Register Container Styling */
+.login-container,
+.register-container {
     background-color: #ffffff;
     padding: 40px;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     width: 400px;
-    height: 500px;
     text-align: center;
 }
 
+/* Header */
 h2 {
     margin-bottom: 20px;
     color: #1e3a8a;
 }
 
-input {
+/* Form Inputs */
+input[type="text"],
+input[type="password"] {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -38,6 +42,7 @@ input {
     font-size: 14px;
 }
 
+/* Focus Outlines */
 input:focus,
 button:focus,
 a:focus {
@@ -45,6 +50,7 @@ a:focus {
     outline-offset: 2px;
 }
 
+/* Submit Button */
 button {
     width: 100%;
     padding: 12px;
@@ -62,6 +68,7 @@ button:hover {
     opacity: 0.9;
 }
 
+/* Link Styling */
 a {
     text-decoration: none;
     color: #2563eb;
@@ -71,8 +78,8 @@ a:hover {
     text-decoration: underline;
 }
 
- /* Styled Google Button */
- .social-login {
+/* Social Login Buttons */
+.social-login {
     display: flex;
     justify-content: space-between;
     gap: 10px;
@@ -99,8 +106,6 @@ a:hover {
     height: 20px;
 }
 
-/* Platform-specific colors */
-
 .google-btn {
     display: inline-flex;
     align-items: center;
@@ -126,12 +131,12 @@ a:hover {
     height: 20px;
 }
 
+/* Platform-specific Colors */
 .google {
     background-color: #ffffff;
     color: #444;
     border: 1px solid #ddd;
 }
-
 .google:hover {
     background-color: #f0f0f0;
 }
@@ -139,7 +144,6 @@ a:hover {
 .facebook {
     background-color: #1877F2;
 }
-
 .facebook:hover {
     background-color: #145dbf;
 }
@@ -147,41 +151,14 @@ a:hover {
 .github {
     background-color: #333;
 }
-
 .github:hover {
     background-color: #24292e;
 }
 
-/*
-.social-btn {
-    display: inline-block;
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 8px;
-    text-align: center;
-    color: white;
-    font-size: 16px;
-    transition: background 0.3s ease;
-}
-
-.google-btn {
-    background-color: #db4437;
-}
-
-.google-btn:hover {
-    background-color: #c23321;
-}
-
-.error-message {
-    margin-top: 15px;
-    color: red;
-    font-size: 14px;
-} */
-
-/* Responsive for tablets (≤ 720px) */
+/* Responsive for Tablets (≤ 720px) */
 @media (max-width: 720px) {
-    .login-container {
+    .login-container,
+    .register-container {
         width: 90%;
         padding: 30px;
     }
@@ -190,15 +167,18 @@ a:hover {
         font-size: 20px;
     }
 
-    input, button, .social-btn {
+    input,
+    button,
+    .social-btn {
         font-size: 14px;
         padding: 10px;
     }
 }
 
-/* Responsive for mobile phones (≤ 480px) */
+/* Responsive for Mobiles (≤ 480px) */
 @media (max-width: 480px) {
-    .login-container {
+    .login-container,
+    .register-container {
         width: 95%;
         padding: 20px;
     }
@@ -207,12 +187,15 @@ a:hover {
         font-size: 18px;
     }
 
-    input, button, .social-btn {
+    input,
+    button,
+    .social-btn {
         font-size: 13px;
         padding: 8px;
     }
 
-    .error-message, a {
+    .error-message,
+    a {
         font-size: 13px;
     }
 }
