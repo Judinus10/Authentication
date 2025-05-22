@@ -46,7 +46,7 @@ public String processRegister(@ModelAttribute User user, Model model) {
 
     userRepo.save(user);
     model.addAttribute("username", user.getUsername());
-    return "register_success";
+    return "register_successfull";
 }
 
 
