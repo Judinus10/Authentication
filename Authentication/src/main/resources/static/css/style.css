@@ -78,6 +78,32 @@ a:hover {
     text-decoration: underline;
 }
 
+.options-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #334155;
+}
+
+.forgot-password {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+    color: #1d4ed8;
+}
+
 /* Social Login Buttons */
 .social-login {
     display: flex;
