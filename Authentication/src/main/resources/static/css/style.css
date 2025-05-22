@@ -93,6 +93,12 @@ a:hover {
     color: #334155;
 }
 
+input[type="checkbox"] {
+    outline: none;
+    box-shadow: none;
+}
+
+
 .forgot-password {
     color: #2563eb;
     text-decoration: none;
