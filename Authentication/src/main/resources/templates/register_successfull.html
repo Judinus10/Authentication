@@ -5,8 +5,10 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<h2>Registration Successful!</h2>
-<p>Welcome, <span th:text="${username}"></span>!</p>
-<p><a th:href="@{/login}">Go to Login</a></p>
+<div class="success-container">
+    <h2>Registration Successful!</h2>
+    <p>Welcome, <span th:text="${username}"></span>!</p>
+    <p><a th:href="@{/login}">Go to Login</a></p>
+</div>
 </body>
 </html>
