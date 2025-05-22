@@ -155,7 +155,51 @@ a:hover {
     background-color: #24292e;
 }
 
+/* Registration Success Page Styling */
+.success-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #f0f4f8, #dbeafe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h2 {
+    color: #16a34a; /* Green to indicate success */
+    margin-bottom: 10px;
+}
+
+.success-container p {
+    font-size: 16px;
+    color: #1f2937;
+    margin-bottom: 10px;
+}
+
+.success-container a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.success-container a:hover {
+    text-decoration: underline;
+    color: #1d4ed8;
+}
 
 /* Responsive for Tablets (≤ 720px) */
 @media (max-width: 720px) {
