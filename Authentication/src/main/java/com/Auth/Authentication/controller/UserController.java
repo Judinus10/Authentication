@@ -6,19 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class MainController {
+public class UserController {
 
     @Autowired
     private UserRepository userRepo;
 
+    // Show login page
     @GetMapping("/login")
     public String showLoginPage(Model model) {
         model.addAttribute("user", new User());
         return "login";
     }
 
+    // Process login
     @PostMapping("/login")
     public String processLogin(@ModelAttribute User user, Model model) {
         User existing = userRepo.findByUsername(user.getUsername());
@@ -31,59 +34,79 @@ public class MainController {
         }
     }
 
+    // Show register page
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
+    // Process register and redirect to OTP
     @PostMapping("/register")
-    public String processRegister(@ModelAttribute User user, Model model) {
+    public String processRegister(@ModelAttribute User user, RedirectAttributes redirectAttributes, Model model) {
         if (userRepo.findByUsername(user.getUsername()) != null) {
             model.addAttribute("error", "Username already exists");
             return "register";
         }
 
         userRepo.save(user);
-        model.addAttribute("username", user.getUsername());
-        return "register_successfull";
+
+        // Send OTP to user's email (for now, assume it's sent)
+        redirectAttributes.addFlashAttribute("email", user.getEmail());
+        return "redirect:/otp-confirmation";
     }
 
+    // Root redirect
     @GetMapping("/")
     public String root() {
         return "redirect:/login";
     }
 
+    // Show forgot password form
     @GetMapping("/forgot-password")
     public String showForgotPasswordForm() {
-        return "forgot_password"; // This is your Thymeleaf HTML page name
+        return "forgot_password";
     }
 
+    // Process forgot password and redirect to OTP
     @PostMapping("/forgot-password")
-    public String forgotPassword(@RequestParam("email") String email, Model model) {
+    public String forgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes, Model model) {
         User user = userRepo.findByEmail(email);
         if (user != null) {
-            model.addAttribute("message", "Password reset link sent to your email!");
+            // Send OTP (assume it's sent)
+            redirectAttributes.addFlashAttribute("email", email);
+            return "redirect:/otp-confirmation";
         } else {
             model.addAttribute("error", "No user found with this email.");
+            return "forgot_password";
         }
-        return "forgot-password"; // return same view
     }
 
+    // Show OTP confirmation page
     @GetMapping("/otp-confirmation")
-    public String showOtpPage() {
+    public String showOtpPage(@ModelAttribute("email") String email, Model model) {
+        model.addAttribute("email", email);
         return "otp-confirmation";
     }
 
+    // Verify OTP
     @PostMapping("/verify-otp")
-    public String verifyOtp(@RequestParam("otp") String otp, Model model) {
-        String expectedOtp = "123456"; // You can replace this with the actual stored OTP (session, db, etc.)
+    public String verifyOtp(@RequestParam("otp") String otp, @RequestParam("email") String email, Model model) {
+        String expectedOtp = "123456"; // Replace with real OTP logic
+
         if (otp.equals(expectedOtp)) {
-            return "redirect:/dashboard"; // Redirect on success
+            model.addAttribute("email", email);
+            return "redirect:/reset-password"; // Or home/dashboard if registration
         } else {
             model.addAttribute("error", "Invalid OTP. Please try again.");
+            model.addAttribute("email", email);
             return "otp-confirmation";
         }
     }
 
+    // Reset password form (optional)
+    @GetMapping("/reset-password")
+    public String showResetPasswordForm() {
+        return "reset_password"; // You can add this page separately
+    }
 }
