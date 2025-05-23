@@ -24,7 +24,7 @@ body {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: 40px;
-    border-radius: 16px;
+    border-radius: 25px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.2);
     width: 400px;
@@ -45,7 +45,7 @@ input[type="email"] {
     padding: 12px;
     margin: 10px 0;
     border: 1px solid #cbd5e1;
-    border-radius: 8px;
+    border-radius: 25px;
     font-size: 14px;
 }
 
@@ -63,7 +63,7 @@ button {
     padding: 12px;
     margin-top: 10px;
     border: none;
-    border-radius: 8px;
+    border-radius: 25px;
     background: linear-gradient(to right, #6366f1, #3b82f6);
     color: white;
     font-size: 16px;
@@ -116,82 +116,29 @@ input[type="checkbox"] {
     color: #1d4ed8;
 }
 
-/* Social Login Buttons */
-.social-login {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.social-btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    color: white;
-    transition: 0.3s ease;
-}
-
-.social-logo {
-    width: 20px;
-    height: 20px;
-}
-
-.google-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: white;
+.google {
+    background-color: white;
+    color: #555;
     border: 1px solid #ddd;
     padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #444;
-    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 25px;
     cursor: pointer;
-    transition: background 0.3s;
-    margin-top: 10px;
+    text-decoration: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
 }
 
-.google-btn:hover {
-    background: #f0f0f0;
-}
-
-.google-logo {
-    width: 20px;
-    height: 20px;
-}
-
-/* Platform-specific Colors */
-.google {
-    background-color: #ffffff;
-    color: #444;
-    border: 1px solid #ddd;
-}
 .google:hover {
-    background-color: #f0f0f0;
+    background-color: #f7f7f7;
+    text-decoration: none; /* Ensure no underline on hover */
+    transform: scale(1.05); /* Slight zoom */
 }
 
-.facebook {
-    background-color: #1877F2;
-}
-.facebook:hover {
-    background-color: #145dbf;
-}
-
-.github {
-    background-color: #333;
-}
-.github:hover {
-    background-color: #24292e;
-}
 
 /* Success Message Popup */
 .popup-message {
