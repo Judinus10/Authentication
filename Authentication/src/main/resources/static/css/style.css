@@ -139,6 +139,23 @@ input[type="checkbox"] {
     transform: scale(1.05); /* Slight zoom */
 }
 
+.otp-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.otp-container input, .otp-container button {
+    margin: 10px 0;
+    padding: 10px;
+    width: 80%;
+}
+
+
 
 /* Success Message Popup */
 .popup-message {
