@@ -50,13 +50,10 @@ public class UserController {
         }
 
         userRepo.save(user);
-
-        // Send OTP to user's email (for now, assume it's sent)
         redirectAttributes.addFlashAttribute("email", user.getEmail());
         return "redirect:/otp-confirmation";
     }
 
-    // Root redirect
     @GetMapping("/")
     public String root() {
         return "redirect:/login";
@@ -70,70 +67,80 @@ public class UserController {
 
     // Process forgot password and redirect to OTP
     @PostMapping("/forgot-password")
-    public String forgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes,
-            Model model) {
+    public String forgotPassword(@RequestParam("email") String email,
+                                 RedirectAttributes redirectAttributes,
+                                 Model model) {
         User user = userRepo.findByEmail(email);
         if (user != null) {
-            // Send OTP (assume it's sent)
             redirectAttributes.addFlashAttribute("email", email);
             return "redirect:/otp-confirmation";
         } else {
-            model.addAttribute("error", "No user found with this email.");
-            return "otp-confirmation";
+            redirectAttributes.addFlashAttribute("error", "No user found with this email.");
+            // return "redirect:/forgot-password";
+            return "redirect:/otp-confirmation";
         }
     }
 
     // Show OTP confirmation page
     @GetMapping("/otp-confirmation")
-    public String showOtpPage(@ModelAttribute("email") String email, Model model) {
+    public String showOtpPage(@ModelAttribute("email") String email,
+                              @ModelAttribute("error") String error,
+                              Model model) {
         model.addAttribute("email", email);
+        model.addAttribute("error", error);
         return "otp-confirmation";
     }
 
     // Verify OTP
     @PostMapping("/verify-otp")
-    public String verifyOtp(@RequestParam("otp") String otp, @RequestParam("email") String email, Model model) {
+    public String verifyOtp(@RequestParam("otp") String otp,
+                            @RequestParam("email") String email,
+                            RedirectAttributes redirectAttributes) {
         String expectedOtp = "123456"; // Replace with real OTP logic
 
         if (otp.equals(expectedOtp)) {
-            model.addAttribute("email", email);
-            return "redirect:/reset-password"; // Or home/dashboard if registration
+            return "redirect:/reset-password?email=" + email;
         } else {
-            model.addAttribute("error", "Invalid OTP. Please try again.");
-            model.addAttribute("email", email);
-            return "otp-confirmation";
+            redirectAttributes.addFlashAttribute("email", email);
+            redirectAttributes.addFlashAttribute("error", "Invalid OTP. Please try again.");
+            return "redirect:/otp-confirmation";
         }
     }
 
-    // Reset password form
+    // Show reset password form
     @GetMapping("/reset-password")
-    public String showResetPasswordPage(@RequestParam("email") String email, Model model) {
+    public String showResetPasswordPage(@RequestParam("email") String email,
+                                        @ModelAttribute("error") String error,
+                                        @ModelAttribute("success") String success,
+                                        Model model) {
         model.addAttribute("email", email);
+        model.addAttribute("error", error);
+        model.addAttribute("success", success);
         return "reset_password";
     }
 
+    // Process reset password
     @PostMapping("/reset-password")
     public String resetPassword(@RequestParam("email") String email,
-            @RequestParam("newPassword") String newPassword,
-            @RequestParam("confirmPassword") String confirmPassword,
-            Model model) {
+                                @RequestParam("newPassword") String newPassword,
+                                @RequestParam("confirmPassword") String confirmPassword,
+                                RedirectAttributes redirectAttributes) {
+
         if (!newPassword.equals(confirmPassword)) {
-            model.addAttribute("error", "Passwords do not match");
-            model.addAttribute("email", email);
-            return "reset_password";
+            redirectAttributes.addFlashAttribute("error", "Passwords do not match");
+            return "redirect:/reset-password?email=" + email;
         }
 
         User user = userRepo.findByEmail(email);
         if (user == null) {
-            model.addAttribute("error", "User not found");
-            return "reset_password";
+            redirectAttributes.addFlashAttribute("error", "User not found");
+            return "redirect:/reset-password?email=" + email;
         }
 
         user.setPassword(newPassword);
         userRepo.save(user);
 
-        model.addAttribute("success", "Password reset successfully!");
-        return "reset_password";
+        redirectAttributes.addFlashAttribute("success", "Password reset successfully!");
+        return "redirect:/reset-password?email=" + email;
     }
-
 }
