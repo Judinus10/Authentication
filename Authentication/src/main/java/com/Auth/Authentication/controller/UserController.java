@@ -53,7 +53,7 @@ public class UserController {
 
         // Send OTP to user's email (for now, assume it's sent)
         redirectAttributes.addFlashAttribute("email", user.getEmail());
-        return "redirect:/otp-confirmation";
+        return "otp-confirmation";
     }
 
     // Root redirect
@@ -78,7 +78,7 @@ public class UserController {
             return "redirect:/otp-confirmation";
         } else {
             model.addAttribute("error", "No user found with this email.");
-            return "forgot_password";
+            return "otp-confirmation";
         }
     }
 

@@ -200,7 +200,7 @@ input[type="checkbox"] {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 25px;
     background: linear-gradient(to right, #6366f1, #3b82f6);
     color: white;
     text-decoration: none;
@@ -239,19 +239,19 @@ input[type="checkbox"] {
 }
 
 .forgot-password-container input[type="email"] {
-    width: 100%;
+    width: 95%;
     padding: 12px;
     border: 1px solid #cbd5e1;
-    border-radius: 8px;
+    border-radius: 25px;
     margin-bottom: 20px;
     font-size: 14px;
 }
 
 .forgot-password-container button {
-    width: 100%;
+    width: 50%;
     padding: 12px;
     border: none;
-    border-radius: 8px;
+    border-radius: 25px;
     background: linear-gradient(to right, #6366f1, #3b82f6);
     color: white;
     font-size: 16px;
@@ -261,6 +261,7 @@ input[type="checkbox"] {
 
 .forgot-password-container button:hover {
     opacity: 0.9;
+    transform: scale(1.05); 
 }
 
 /* Responsive for Tablets (≤ 720px) */
