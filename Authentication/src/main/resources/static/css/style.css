@@ -14,24 +14,21 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    position: relative;
 }
 
 /* Login and Register Container Styling */
 .login-container,
 .register-container {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    text-align: center;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* for Safari */
+    -webkit-backdrop-filter: blur(10px);
     padding: 40px;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 400px;
+    text-align: center;
 }
 
 /* Header */
@@ -42,7 +39,8 @@ h2 {
 
 /* Form Inputs */
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -50,17 +48,6 @@ input[type="password"] {
     border-radius: 8px;
     font-size: 14px;
 }
-
-.blur-container {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
 
 /* Focus Outlines */
 input:focus,
@@ -117,7 +104,6 @@ input[type="checkbox"] {
     outline: none;
     box-shadow: none;
 }
-
 
 .forgot-password {
     color: #2563eb;
@@ -207,49 +193,65 @@ input[type="checkbox"] {
     background-color: #24292e;
 }
 
-/* Registration Success Page Styling */
-.success-container {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    width: 400px;
+/* Success Message Popup */
+.popup-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(34, 197, 94, 0.95);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 12px;
+    font-size: 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    animation: fadeOut 3s ease forwards;
+}
+
+/* Fade out animation */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Reset Success Page */
+.reset-success-container {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 100px;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* for Safari */
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.success-container p {
-    font-size: 16px;
-    color: #1f2937;
-    margin-bottom: 10px;
-}
-
-.success-container a {
-    color: #2563eb;
+/* Optional link button styling */
+.btn-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #6366f1, #3b82f6);
+    color: white;
     text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
-.success-container a:hover {
-    text-decoration: underline;
-    color: #1d4ed8;
+.btn-link:hover {
+    background: #4f46e5;
 }
 
-/* Forgot Password Page */
+/* Forgot Password Container */
 .forgot-password-container {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    -webkit-backdrop-filter: blur(10px);
     padding: 40px;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -258,7 +260,6 @@ input[type="checkbox"] {
     margin: 80px auto;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
-
 
 .forgot-password-container h2 {
     color: #1e3a8a;
@@ -297,31 +298,6 @@ input[type="checkbox"] {
 .forgot-password-container button:hover {
     opacity: 0.9;
 }
-
-/* Reset Success Page */
-.reset-success-container {
-    max-width: 400px;
-    margin: auto;
-    margin-top: 100px;
-    text-align: center;
-}
-
-/* Optional link button styling */
-.btn-link {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    border-radius: 8px;
-    background: linear-gradient(to right, #6366f1, #3b82f6);
-    color: white;
-    text-decoration: none;
-    transition: 0.3s ease;
-}
-
-.btn-link:hover {
-    background: #4f46e5;
-}
-
 
 /* Responsive for Tablets (≤ 720px) */
 @media (max-width: 720px) {
