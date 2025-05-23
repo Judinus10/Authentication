@@ -51,7 +51,7 @@ public class UserController {
 
         userRepo.save(user);
         redirectAttributes.addFlashAttribute("email", user.getEmail());
-        return "redirect:/otp-confirmation";
+        return "redirect:/otp_confirmation";
     }
 
     @GetMapping("/")
@@ -73,22 +73,22 @@ public class UserController {
         User user = userRepo.findByEmail(email);
         if (user != null) {
             redirectAttributes.addFlashAttribute("email", email);
-            return "redirect:/otp-confirmation";
+            return "redirect:/otp_confirmation";
         } else {
             redirectAttributes.addFlashAttribute("error", "No user found with this email.");
             // return "redirect:/forgot-password";
-            return "redirect:/otp-confirmation";
+            return "redirect:/otp_confirmation";
         }
     }
 
     // Show OTP confirmation page
-    @GetMapping("/otp-confirmation")
+    @GetMapping("/otp_confirmation")
     public String showOtpPage(@ModelAttribute("email") String email,
                               @ModelAttribute("error") String error,
                               Model model) {
         model.addAttribute("email", email);
         model.addAttribute("error", error);
-        return "otp-confirmation";
+        return "otp_confirmation";
     }
 
     // Verify OTP
@@ -103,12 +103,12 @@ public class UserController {
         } else {
             redirectAttributes.addFlashAttribute("email", email);
             redirectAttributes.addFlashAttribute("error", "Invalid OTP. Please try again.");
-            return "redirect:/otp-confirmation";
+            return "redirect:/otp_confirmation";
         }
     }
 
     // Show reset password form
-    @GetMapping("/reset-password")
+    @GetMapping("/reset_password")
     public String showResetPasswordPage(@RequestParam("email") String email,
                                         @ModelAttribute("error") String error,
                                         @ModelAttribute("success") String success,
@@ -120,7 +120,7 @@ public class UserController {
     }
 
     // Process reset password
-    @PostMapping("/reset-password")
+    @PostMapping("/reset_password")
     public String resetPassword(@RequestParam("email") String email,
                                 @RequestParam("newPassword") String newPassword,
                                 @RequestParam("confirmPassword") String confirmPassword,
@@ -128,19 +128,19 @@ public class UserController {
 
         if (!newPassword.equals(confirmPassword)) {
             redirectAttributes.addFlashAttribute("error", "Passwords do not match");
-            return "redirect:/reset-password?email=" + email;
+            return "redirect:/reset_password?email=" + email;
         }
 
         User user = userRepo.findByEmail(email);
         if (user == null) {
             redirectAttributes.addFlashAttribute("error", "User not found");
-            return "redirect:/reset-password?email=" + email;
+            return "redirect:/reset_password?email=" + email;
         }
 
         user.setPassword(newPassword);
         userRepo.save(user);
 
         redirectAttributes.addFlashAttribute("success", "Password reset successfully!");
-        return "redirect:/reset-password?email=" + email;
+        return "redirect:/reset_password?email=" + email;
     }
 }
