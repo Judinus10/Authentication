@@ -53,7 +53,7 @@ public class UserController {
 
         // Send OTP to user's email (for now, assume it's sent)
         redirectAttributes.addFlashAttribute("email", user.getEmail());
-        return "otp-confirmation";
+        return "redirect:/otp-confirmation";
     }
 
     // Root redirect
