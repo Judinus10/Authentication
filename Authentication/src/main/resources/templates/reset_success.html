@@ -2,10 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Reset Success</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h2>Forgot Password - Success</h2>
-    <p th:text="${message}"></p>
-    <a href="/login">Go to Login</a>
+    <div class="blur-container">
+        <h2>Forgot Password - Success</h2>
+        <p th:text="${message}"></p>
+        <a href="/login" class="link-btn">Go to Login</a>
+    </div>
 </body>
 </html>

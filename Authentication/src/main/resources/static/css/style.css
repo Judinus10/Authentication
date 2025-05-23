@@ -51,6 +51,17 @@ input[type="password"] {
     font-size: 14px;
 }
 
+.blur-container {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
 /* Focus Outlines */
 input:focus,
 button:focus,
@@ -286,6 +297,31 @@ input[type="checkbox"] {
 .forgot-password-container button:hover {
     opacity: 0.9;
 }
+
+/* Reset Success Page */
+.reset-success-container {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 100px;
+    text-align: center;
+}
+
+/* Optional link button styling */
+.btn-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #6366f1, #3b82f6);
+    color: white;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.btn-link:hover {
+    background: #4f46e5;
+}
+
 
 /* Responsive for Tablets (≤ 720px) */
 @media (max-width: 720px) {
