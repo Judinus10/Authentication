@@ -70,7 +70,8 @@ public class UserController {
 
     // Process forgot password and redirect to OTP
     @PostMapping("/forgot-password")
-    public String forgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes, Model model) {
+    public String forgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes,
+            Model model) {
         User user = userRepo.findByEmail(email);
         if (user != null) {
             // Send OTP (assume it's sent)
@@ -104,9 +105,35 @@ public class UserController {
         }
     }
 
-    // Reset password form (optional)
+    // Reset password form
     @GetMapping("/reset-password")
-    public String showResetPasswordForm() {
-        return "reset_password"; // You can add this page separately
+    public String showResetPasswordPage(@RequestParam("email") String email, Model model) {
+        model.addAttribute("email", email);
+        return "reset_password";
     }
+
+    @PostMapping("/reset-password")
+    public String resetPassword(@RequestParam("email") String email,
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("confirmPassword") String confirmPassword,
+            Model model) {
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("error", "Passwords do not match");
+            model.addAttribute("email", email);
+            return "reset_password";
+        }
+
+        User user = userRepo.findByEmail(email);
+        if (user == null) {
+            model.addAttribute("error", "User not found");
+            return "reset_password";
+        }
+
+        user.setPassword(newPassword);
+        userRepo.save(user);
+
+        model.addAttribute("success", "Password reset successfully!");
+        return "reset_password";
+    }
+
 }
