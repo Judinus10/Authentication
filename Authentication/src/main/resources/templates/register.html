@@ -2,17 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Register</title>
-    <link rel="stylesheet" href="/css/style.css"></head>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
 <body>
 <div class="register-container">
-  <h2>Register</h2>
-  <form th:action="@{/register}" method="post" th:object="${user}">
-      <input type="text" th:field="*{username}" placeholder="Username"><br>
-      <input type="password" th:field="*{password}" placeholder="Password"><br>
-      <button type="submit">Register</button>
-  </form>
-  <p><a th:href="@{/login}">Already have an account?</a></p>
+    <h2>Register</h2>
+    <form th:action="@{/register}" method="post" th:object="${user}">
+        <input type="text" th:field="*{firstName}" placeholder="First Name" required><br>
+        <input type="text" th:field="*{lastName}" placeholder="Last Name" required><br>
+        <input type="text" th:field="*{username}" placeholder="Username" required><br>
+        <input type="email" th:field="*{email}" placeholder="Email" required><br>
+        <input type="text" th:field="*{phone}" placeholder="Phone Number"><br>
+        <input type="password" th:field="*{password}" placeholder="Password" required><br>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required><br>
+        <button type="submit">Register</button>
+    </form>
+    <p><a th:href="@{/login}">Already have an account?</a></p>
 </div>
 </body>
-
 </html>
