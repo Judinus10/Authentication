@@ -60,15 +60,30 @@ public class MainController {
     }
 
     @PostMapping("/forgot-password")
-public String forgotPassword(@RequestParam("email") String email, Model model) {
-    User user = userRepo.findByEmail(email);
-    if (user != null) {
-        model.addAttribute("message", "Password reset link sent to your email!");
-    } else {
-        model.addAttribute("error", "No user found with this email.");
+    public String forgotPassword(@RequestParam("email") String email, Model model) {
+        User user = userRepo.findByEmail(email);
+        if (user != null) {
+            model.addAttribute("message", "Password reset link sent to your email!");
+        } else {
+            model.addAttribute("error", "No user found with this email.");
+        }
+        return "forgot-password"; // return same view
     }
-    return "forgot-password"; // return same view
-}
 
+    @GetMapping("/otp-confirmation")
+    public String showOtpPage() {
+        return "otp-confirmation";
+    }
+
+    @PostMapping("/verify-otp")
+    public String verifyOtp(@RequestParam("otp") String otp, Model model) {
+        String expectedOtp = "123456"; // You can replace this with the actual stored OTP (session, db, etc.)
+        if (otp.equals(expectedOtp)) {
+            return "redirect:/dashboard"; // Redirect on success
+        } else {
+            model.addAttribute("error", "Invalid OTP. Please try again.");
+            return "otp-confirmation";
+        }
+    }
 
 }
