@@ -2,6 +2,7 @@ package com.Auth.Authentication.controller;
 
 import com.Auth.Authentication.model.User;
 import com.Auth.Authentication.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     // Show login page
     @GetMapping("/login")
     public String showLoginPage(Model model) {
@@ -25,7 +29,7 @@ public class UserController {
     @PostMapping("/login")
     public String processLogin(@ModelAttribute User user, Model model) {
         User existing = userRepo.findByUsername(user.getUsername());
-        if (existing != null && existing.getPassword().equals(user.getPassword())) {
+        if (existing != null && passwordEncoder.matches(user.getPassword(), existing.getPassword())) {
             model.addAttribute("username", user.getUsername());
             return "home";
         } else {
@@ -49,7 +53,9 @@ public class UserController {
             return "register";
         }
 
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
+
         redirectAttributes.addFlashAttribute("email", user.getEmail());
         return "redirect:/otp_confirmation";
     }
