@@ -134,7 +134,7 @@ input[type="checkbox"] {
     position: absolute;
     right: 10px;
     cursor: pointer;
-    color: #555;
+    color: rgba(0, 0, 0, 0.2);
 }
 
 
