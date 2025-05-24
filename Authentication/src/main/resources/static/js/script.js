@@ -47,3 +47,17 @@ document.addEventListener("DOMContentLoaded", function () {
         form.appendChild(hiddenInput);
     });
 });
+
+// model box
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("errorModal");
+    if (modal) {
+        // Wait for a user click AFTER load
+        setTimeout(() => {
+            document.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+        }, 300); // Delay to let modal appear first
+    }
+});
+
