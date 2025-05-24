@@ -4,17 +4,24 @@
 <head>
     <title>OTP Confirmation</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/otp.js" defer></script>
 </head>
 
 <body>
     <div class="otp-container">
         <h2>Enter OTP</h2>
-        <form th:action="@{/verify-otp}" method="post">
+        <form th:action="@{/verify-otp}" method="post" id="otpForm">
             <input type="hidden" th:value="${email}" name="email">
-            <input type="text" name="otp" placeholder="Enter OTP" required>
+            <div class="otp-inputs">
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+            </div>
             <button type="submit">Verify</button>
         </form>
-
         <p th:if="${error}" th:text="${error}" style="color:red;"></p>
     </div>
 </body>
