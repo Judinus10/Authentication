@@ -20,8 +20,15 @@
             <!-- <input type="text" th:field="*{username}" placeholder="Username" required><br> -->
             <input type="email" th:field="*{email}" placeholder="Email" required><br>
             <!-- <input type="text" th:field="*{phone}" placeholder="Phone Number"><br> -->
-            <input type="password" th:field="*{password}" placeholder="Password" required><br>
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" required><br>
+            <div class="password-field">
+                <input type="password" th:field="*{password}" placeholder="Password" id="password" required>
+                <i class="fas fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
+            </div><br>
+            <div class="password-field">
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword"
+                    required>
+                <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmPassword', this)"></i>
+            </div>
             <button type="submit">Register</button>
         </form>
         <p><a th:href="@{/login}">Already have an account?</a></p>

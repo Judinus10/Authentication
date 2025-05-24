@@ -118,6 +118,26 @@ input[type="checkbox"] {
     color: #1d4ed8;
 }
 
+/* password field */
+.password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-field input {
+    padding-right: 30px;
+    width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #555;
+}
+
+
 .google {
     background-color: white;
     color: #555;
