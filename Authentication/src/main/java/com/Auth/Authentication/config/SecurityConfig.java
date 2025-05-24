@@ -15,7 +15,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/", "/login", "/register", "/forgot-password", "/reset_password", "/otp_confirmation",
+                                "/", "/login", "/register","/home", "/forgot-password", "/reset_password", "/otp_confirmation",
                                 "/register_successfull", "/reset_success", "/h2-console/**", "/css/**", "/js/**")
                         .permitAll()
                         // Allow unauthenticated access to these URLs

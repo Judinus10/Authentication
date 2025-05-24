@@ -9,6 +9,7 @@
 
 <body>
     <div class="otp-container">
+        <a href="javascript:history.back()" class="back-button" title="Go back">&#8592;</a>
         <h2>Enter OTP</h2>
         <form th:action="@{/verify-otp}" method="post" id="otpForm">
             <input type="hidden" th:value="${email}" name="email">
