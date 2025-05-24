@@ -197,8 +197,22 @@ input[type="checkbox"] {
     background-color: #574fd6;
 }
 
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 28px;       /* Controls arrow size */
+    color: black;          /* Arrow color */
+    text-decoration: none; /* Removes underline */
+    cursor: pointer;
+}
+
+.back-button:hover {
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
 /* model box */
-/* Add to style.css */
 .modal {
     display: flex;
     position: fixed;
