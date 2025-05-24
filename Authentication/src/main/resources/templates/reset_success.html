@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Reset Success</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="/js/script.js" defer></script>
 </head>
+
 <body>
     <div class="blur-container">
-        <a href="javascript:history.back()" class="back-button" title="Go back">&#8592;</a>
+        <a href="javascript:history.back()" class="back-arrow" title="Go back">
+            <i class="fas fa-arrow-left"></i>
+        </a>
         <h2>Forgot Password - Success</h2>
         <p th:text="${message}"></p>
         <a href="/login" class="link-btn">Go to Login</a>
     </div>
 </body>
+
 </html>

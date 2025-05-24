@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Registered</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="/js/script.js" defer></script>
 </head>
+
 <body>
-<div class="success-container">
-    <a href="javascript:history.back()" class="back-button" title="Go back">&#8592;</a>
-    <h2>Registration Successful!</h2>
-    <p>Welcome, <span th:text="${username}"></span>!</p>
-    <p><a th:href="@{/login}">Go to Login</a></p>
-</div>
+    <div class="success-container">
+        <a href="javascript:history.back()" class="back-arrow" title="Go back">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h2>Registration Successful!</h2>
+        <p>Welcome, <span th:text="${username}"></span>!</p>
+        <p><a th:href="@{/login}">Go to Login</a></p>
+    </div>
 </body>
+
 </html>
