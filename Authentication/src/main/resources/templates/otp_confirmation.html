@@ -17,6 +17,8 @@
 
         <form th:action="@{/verify-otp}" method="post" id="otpForm">
             <input type="hidden" th:value="${email}" name="email">
+            <input type="hidden" name="otp" id="otpInput">
+            <input type="hidden" name="flow" th:value="${flow}">
 
             <div class="otp-inputs">
                 <input type="text" maxlength="1" required>

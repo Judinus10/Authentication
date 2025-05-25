@@ -24,8 +24,13 @@ public class UserController {
     @Autowired
     private OtpService otpService;
 
-    @Autowired
+    // @Autowired
     // private EmailService emailService;
+
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/login";
+    }
 
     // Show login page
     @GetMapping("/login")
@@ -70,12 +75,8 @@ public class UserController {
         // emailService.sendOtpEmail(user.getEmail(), otp);
 
         redirectAttributes.addFlashAttribute("email", user.getEmail());
+        redirectAttributes.addFlashAttribute("flow", "register");
         return "redirect:/otp_confirmation";
-    }
-
-    @GetMapping("/")
-    public String root() {
-        return "redirect:/login";
     }
 
     // Show forgot password form
@@ -87,8 +88,8 @@ public class UserController {
     // Process forgot password and redirect to OTP
     @PostMapping("/forgot-password")
     public String forgotPassword(@RequestParam("email") String email,
-                                 RedirectAttributes redirectAttributes,
-                                 Model model) {
+            RedirectAttributes redirectAttributes,
+            Model model) {
         User user = userRepo.findByEmail(email);
         if (user != null) {
             String otp = otpService.generateOtp();
@@ -96,6 +97,7 @@ public class UserController {
             // emailService.sendOtpEmail(email, otp);
 
             redirectAttributes.addFlashAttribute("email", email);
+            redirectAttributes.addFlashAttribute("flow", "forgot");
             return "redirect:/otp_confirmation";
         } else {
             redirectAttributes.addFlashAttribute("error", "No user found with this email.");
@@ -106,26 +108,39 @@ public class UserController {
     // Show OTP confirmation page
     @GetMapping("/otp_confirmation")
     public String showOtpPage(@ModelAttribute("email") String email,
-                              @ModelAttribute("error") String error,
-                              Model model) {
+            @ModelAttribute("error") String error,
+            @ModelAttribute("flow") String flow,
+            Model model) {
         model.addAttribute("email", email);
         model.addAttribute("error", error);
+        model.addAttribute("flow", flow);
         return "otp_confirmation";
     }
 
     // Verify OTP
     @PostMapping("/verify-otp")
     public String verifyOtp(@RequestParam("otp") String otp,
-                            @RequestParam("email") String email,
-                            RedirectAttributes redirectAttributes) {
+            @RequestParam("email") String email,
+            @RequestParam("flow") String flow,
+            RedirectAttributes redirectAttributes) {
 
         String expectedOtp = otpService.getOtp(email);
 
         if (expectedOtp != null && otp.equals(expectedOtp)) {
             otpService.clearOtp(email);
-            return "redirect:/reset_password?email=" + email;
+
+            if ("register".equalsIgnoreCase(flow)) {
+                return "redirect:/login";
+            } else if ("forgot".equalsIgnoreCase(flow)) {
+                return "redirect:/reset_password?email=" + email;
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Unknown flow type.");
+                return "redirect:/otp_confirmation";
+            }
+
         } else {
             redirectAttributes.addFlashAttribute("email", email);
+            redirectAttributes.addFlashAttribute("flow", flow);
             redirectAttributes.addFlashAttribute("error", "Invalid OTP. Please try again.");
             return "redirect:/otp_confirmation";
         }
@@ -133,21 +148,25 @@ public class UserController {
 
     // Resend OTP
     @PostMapping("/resend-otp")
-    public String resendOtp(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
+    public String resendOtp(@RequestParam("email") String email,
+            @RequestParam("flow") String flow,
+            RedirectAttributes redirectAttributes) {
+
         String otp = otpService.generateOtp();
         otpService.saveOtp(email, otp);
         // emailService.sendOtpEmail(email, otp);
 
         redirectAttributes.addFlashAttribute("email", email);
+        redirectAttributes.addFlashAttribute("flow", flow);
         return "redirect:/otp_confirmation";
     }
 
     // Show reset password form
     @GetMapping("/reset_password")
     public String showResetPasswordPage(@RequestParam("email") String email,
-                                        @ModelAttribute("error") String error,
-                                        @ModelAttribute("success") String success,
-                                        Model model) {
+            @ModelAttribute("error") String error,
+            @ModelAttribute("success") String success,
+            Model model) {
         model.addAttribute("email", email);
         model.addAttribute("error", error);
         model.addAttribute("success", success);
@@ -157,9 +176,9 @@ public class UserController {
     // Process reset password
     @PostMapping("/reset_password")
     public String resetPassword(@RequestParam("email") String email,
-                                @RequestParam("newPassword") String newPassword,
-                                @RequestParam("confirmPassword") String confirmPassword,
-                                RedirectAttributes redirectAttributes) {
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("confirmPassword") String confirmPassword,
+            RedirectAttributes redirectAttributes) {
 
         if (!newPassword.equals(confirmPassword)) {
             redirectAttributes.addFlashAttribute("error", "Passwords do not match");
