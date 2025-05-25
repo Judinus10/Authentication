@@ -93,8 +93,22 @@ const countdown = setInterval(() => {
     }
 }, 1000);
 
-// Optional: resend button action
+//resend otp button action
 resendBtn.addEventListener('click', () => {
-    const email = document.querySelector('[name="email"]').value;
-    window.location.href = '/resend-otp?email=' + encodeURIComponent(email);
+    const form = document.createElement('form');
+    form.method = 'post';
+    form.action = '/resend-otp';
+
+    const emailInput = document.querySelector('[name="email"]');
+    const email = emailInput.value;
+
+    const hiddenEmail = document.createElement('input');
+    hiddenEmail.type = 'hidden';
+    hiddenEmail.name = 'email';
+    hiddenEmail.value = email;
+
+    form.appendChild(hiddenEmail);
+    document.body.appendChild(form);
+    form.submit();
 });
+
