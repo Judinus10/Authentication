@@ -21,7 +21,8 @@ body {
 
 /* Login and Register Container Styling */
 .login-container,
-.register-container {
+.register-container,
+.otp-container {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -163,17 +164,6 @@ input[type="checkbox"] {
     /* Slight zoom */
 }
 
-.otp-container {
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 30px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    background-color: #f9f9f9;
-    text-align: center;
-    margin-top: 50px;
-}
-
 .otp-container input,
 .otp-container button {
     margin: 10px 0;
@@ -206,7 +196,7 @@ input[type="checkbox"] {
 .otp-container button {
     padding: 10px 20px;
     font-size: 16px;
-    border-radius: 6px;
+    border-radius: 100px;
     background-color: #6c63ff;
     color: white;
     border: none;
@@ -215,6 +205,18 @@ input[type="checkbox"] {
 
 .otp-container button:hover {
     background-color: #574fd6;
+}
+
+.resend-btn {
+    margin-top: 10px;
+    display: none;
+    border-radius: 100px;
+}
+
+.timer {
+    margin-top: 10px;
+    font-size: 14px;
+    color: gray;
 }
 
 /* back arrow */
