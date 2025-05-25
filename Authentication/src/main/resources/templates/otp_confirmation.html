@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <title>OTP Confirmation</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="/js/script.js" defer></script>
 </head>
-
 <body>
     <div class="otp-container">
         <a href="javascript:history.back()" class="back-arrow" title="Go back">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <h2>Enter OTP</h2>
+
+        <h2>OTP has been sent to <span th:text="${email}">example@email.com</span></h2>
+        <p>Enter the OTP to verify</p>
+
         <form th:action="@{/verify-otp}" method="post" id="otpForm">
             <input type="hidden" th:value="${email}" name="email">
+
             <div class="otp-inputs">
                 <input type="text" maxlength="1" required>
                 <input type="text" maxlength="1" required>
@@ -24,10 +26,14 @@
                 <input type="text" maxlength="1" required>
                 <input type="text" maxlength="1" required>
             </div>
+
+            <div class="timer" id="timer">Resend OTP in 1:00</div>
+
             <button type="submit">Verify</button>
+            <button type="button" id="resendBtn" class="resend-btn">Resend OTP</button>
         </form>
+
         <p th:if="${error}" th:text="${error}" style="color:red;"></p>
     </div>
 </body>
-
 </html>
