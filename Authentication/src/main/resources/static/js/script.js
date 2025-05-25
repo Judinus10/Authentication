@@ -74,3 +74,27 @@ function togglePassword(id, icon) {
         icon.classList.add("fa-eye");
     }
 }
+
+// Countdown timer
+let timer = 60;
+const timerDisplay = document.getElementById("timer");
+const resendBtn = document.getElementById("resendBtn");
+
+const countdown = setInterval(() => {
+    if (timer > 0) {
+        timer--;
+        const minutes = Math.floor(timer / 60);
+        const seconds = timer % 60;
+        timerDisplay.textContent = `Resend OTP in ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    } else {
+        clearInterval(countdown);
+        timerDisplay.style.display = 'none';
+        resendBtn.style.display = 'inline-block';
+    }
+}, 1000);
+
+// Optional: resend button action
+resendBtn.addEventListener('click', () => {
+    const email = document.querySelector('[name="email"]').value;
+    window.location.href = '/resend-otp?email=' + encodeURIComponent(email);
+});
