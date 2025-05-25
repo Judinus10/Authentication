@@ -2,7 +2,7 @@ package com.Auth.Authentication.controller;
 
 import com.Auth.Authentication.model.User;
 import com.Auth.Authentication.repository.UserRepository;
-import com.Auth.Authentication.service.EmailService;
+// import com.Auth.Authentication.service.EmailService;
 import com.Auth.Authentication.service.OtpService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class UserController {
     private OtpService otpService;
 
     @Autowired
-    private EmailService emailService;
+    // private EmailService emailService;
 
     // Show login page
     @GetMapping("/login")
@@ -67,7 +67,7 @@ public class UserController {
 
         String otp = otpService.generateOtp();
         otpService.saveOtp(user.getEmail(), otp);
-        emailService.sendOtpEmail(user.getEmail(), otp);
+        // emailService.sendOtpEmail(user.getEmail(), otp);
 
         redirectAttributes.addFlashAttribute("email", user.getEmail());
         return "redirect:/otp_confirmation";
@@ -93,7 +93,7 @@ public class UserController {
         if (user != null) {
             String otp = otpService.generateOtp();
             otpService.saveOtp(email, otp);
-            emailService.sendOtpEmail(email, otp);
+            // emailService.sendOtpEmail(email, otp);
 
             redirectAttributes.addFlashAttribute("email", email);
             return "redirect:/otp_confirmation";
@@ -136,7 +136,7 @@ public class UserController {
     public String resendOtp(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
         String otp = otpService.generateOtp();
         otpService.saveOtp(email, otp);
-        emailService.sendOtpEmail(email, otp);
+        // emailService.sendOtpEmail(email, otp);
 
         redirectAttributes.addFlashAttribute("email", email);
         return "redirect:/otp_confirmation";
