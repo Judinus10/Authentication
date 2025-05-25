@@ -2,8 +2,11 @@ package com.Auth.Authentication.controller;
 
 import com.Auth.Authentication.model.User;
 import com.Auth.Authentication.repository.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.Auth.Authentication.service.EmailService;
+import com.Auth.Authentication.service.OtpService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,12 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private OtpService otpService;
+
+    @Autowired
+    private EmailService emailService;
 
     // Show login page
     @GetMapping("/login")
@@ -56,6 +65,10 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
 
+        String otp = otpService.generateOtp();
+        otpService.saveOtp(user.getEmail(), otp);
+        emailService.sendOtpEmail(user.getEmail(), otp);
+
         redirectAttributes.addFlashAttribute("email", user.getEmail());
         return "redirect:/otp_confirmation";
     }
@@ -78,11 +91,14 @@ public class UserController {
                                  Model model) {
         User user = userRepo.findByEmail(email);
         if (user != null) {
+            String otp = otpService.generateOtp();
+            otpService.saveOtp(email, otp);
+            emailService.sendOtpEmail(email, otp);
+
             redirectAttributes.addFlashAttribute("email", email);
             return "redirect:/otp_confirmation";
         } else {
             redirectAttributes.addFlashAttribute("error", "No user found with this email.");
-            // return "redirect:/forgot-password";
             return "redirect:/otp_confirmation";
         }
     }
@@ -102,15 +118,28 @@ public class UserController {
     public String verifyOtp(@RequestParam("otp") String otp,
                             @RequestParam("email") String email,
                             RedirectAttributes redirectAttributes) {
-        String expectedOtp = "123456"; // Replace with real OTP logic
 
-        if (otp.equals(expectedOtp)) {
-            return "redirect:/reset-password?email=" + email;
+        String expectedOtp = otpService.getOtp(email);
+
+        if (expectedOtp != null && otp.equals(expectedOtp)) {
+            otpService.clearOtp(email);
+            return "redirect:/reset_password?email=" + email;
         } else {
             redirectAttributes.addFlashAttribute("email", email);
             redirectAttributes.addFlashAttribute("error", "Invalid OTP. Please try again.");
             return "redirect:/otp_confirmation";
         }
+    }
+
+    // Resend OTP
+    @PostMapping("/resend-otp")
+    public String resendOtp(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
+        String otp = otpService.generateOtp();
+        otpService.saveOtp(email, otp);
+        emailService.sendOtpEmail(email, otp);
+
+        redirectAttributes.addFlashAttribute("email", email);
+        return "redirect:/otp_confirmation";
     }
 
     // Show reset password form
@@ -143,7 +172,7 @@ public class UserController {
             return "redirect:/reset_password?email=" + email;
         }
 
-        user.setPassword(newPassword);
+        user.setPassword(passwordEncoder.encode(newPassword));
         userRepo.save(user);
 
         redirectAttributes.addFlashAttribute("success", "Password reset successfully!");
